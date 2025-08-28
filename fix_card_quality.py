@@ -6,15 +6,15 @@ def create_single_card_back():
     # Open the official card back
     back_img = Image.open("C:\\GitHub\\YGO-TTS-Assets\\card-backs\\official_yugioh_back.png")
     
-    # Convert to RGB and resize to standard card dimensions
+    # Convert to RGB and resize to match front card dimensions
     back_img = back_img.convert('RGB')
-    back_img = back_img.resize((183, 265), Image.LANCZOS)  # Standard card size
+    back_img = back_img.resize((409, 585), Image.LANCZOS)  # Match front card size
     
     # Save as JPEG for TTS
     back_img.save("C:\\GitHub\\YGO-TTS-Assets\\card-backs\\yugioh_card_back_single.jpg", 
                   'JPEG', quality=95, optimize=True)
     
-    print("Created single card back: yugioh_card_back_single.jpg")
+    print("Created single card back: yugioh_card_back_single.jpg (409x585)")
 
 def increase_card_quality():
     """Recreate grids with higher quality and larger card sizes"""
