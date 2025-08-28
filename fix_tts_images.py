@@ -1,7 +1,7 @@
 from PIL import Image
 import os
 
-def optimize_image_for_tts(input_path, output_path):
+def optimize_image_for_tts(input_path, output_path, resize_to_grid=True):
     """Optimize image for TTS compatibility"""
     try:
         # Open image
@@ -11,14 +11,14 @@ def optimize_image_for_tts(input_path, output_path):
         if img.mode != 'RGB':
             img = img.convert('RGB')
         
-        # Ensure dimensions are correct (TTS expects exact sizes)
-        # Standard TTS grid: 10 cards × 7 cards
-        # Card size: 183 × 265 pixels
-        expected_width = 10 * 183  # 1830
-        expected_height = 7 * 265  # 1855
-        
-        if img.size != (expected_width, expected_height):
-            img = img.resize((expected_width, expected_height), Image.LANCZOS)
+        # Only resize grids, not individual cards
+        if resize_to_grid:
+            # Current TTS grid: 10 cards × 7 cards at 4096x4096
+            expected_width = 4096
+            expected_height = 4096
+            
+            if img.size != (expected_width, expected_height):
+                img = img.resize((expected_width, expected_height), Image.LANCZOS)
         
         # Save with TTS-optimized settings
         img.save(output_path, 'JPEG', 
@@ -53,11 +53,17 @@ def optimize_all_grids():
                     
                     optimize_image_for_tts(input_path, output_path)
     
-    # Also optimize card back
-    card_back_path = "C:\\GitHub\\YGO-TTS-Assets\\card-backs\\yugioh_card_back_grid.jpg"
-    if os.path.exists(card_back_path):
-        print(f"\nOptimizing card back...")
-        optimize_image_for_tts(card_back_path, card_back_path)
+    # Also optimize card backs
+    card_back_grid_path = "C:\\GitHub\\YGO-TTS-Assets\\card-backs\\yugioh_card_back_grid.jpg"
+    card_back_single_path = "C:\\GitHub\\YGO-TTS-Assets\\card-backs\\yugioh_card_back_single.jpg"
+    
+    if os.path.exists(card_back_grid_path):
+        print(f"\nOptimizing card back grid...")
+        optimize_image_for_tts(card_back_grid_path, card_back_grid_path)
+    
+    if os.path.exists(card_back_single_path):
+        print(f"Optimizing single card back...")
+        optimize_image_for_tts(card_back_single_path, card_back_single_path, resize_to_grid=False)
 
 if __name__ == "__main__":
     print("Optimizing images for TTS compatibility...")
