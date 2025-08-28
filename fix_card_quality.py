@@ -18,11 +18,11 @@ def create_single_card_back():
 
 def increase_card_quality():
     """Recreate grids with higher quality and larger card sizes"""
-    print("Recreating grids with 4000x4000 recommended size...")
+    print("Recreating grids with 4096x4096 size...")
     
-    # TTS recommended 4000x4000 grid settings
-    CARD_WIDTH = 400   # 4000 / 10 = 400 pixels per card
-    CARD_HEIGHT = 571  # 4000 / 7 = 571 pixels per card  
+    # 4096x4096 grid settings
+    CARD_WIDTH = 409   # 4096 / 10 = 409.6, rounded to 409 pixels per card
+    CARD_HEIGHT = 585  # 4096 / 7 = 585.1, rounded to 585 pixels per card  
     CARDS_PER_ROW = 10
     CARDS_PER_COL = 7
     
@@ -149,7 +149,7 @@ def main():
     
     print("\nAll fixes complete!")
     print("- Single card back created (not grid)")
-    print("- Card quality increased (400x571 per card, 4000x4000 grids)")  
+    print("- Card quality increased (409x585 per card, 4096x4096 grids)")  
     print("- TTS JSON files updated")
 
 if __name__ == "__main__":
