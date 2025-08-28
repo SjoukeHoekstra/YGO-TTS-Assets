@@ -410,7 +410,7 @@
       ],
       "CustomDeck": {
         "100": {
-          "FaceURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/grids/classic_spells_grid_1.jpg",
+          "FaceURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/grids/classic_spells/classic_spells_grid_1.jpg",
           "BackURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/card-backs/yugioh_card_back_grid.jpg",
           "NumWidth": 10,
           "NumHeight": 7,
@@ -418,7 +418,7 @@
           "UniqueBack": false
         },
         "101": {
-          "FaceURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/grids/classic_spells_grid_2.jpg",
+          "FaceURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/grids/classic_spells/classic_spells_grid_2.jpg",
           "BackURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/card-backs/yugioh_card_back_grid.jpg",
           "NumWidth": 10,
           "NumHeight": 7,
@@ -426,7 +426,7 @@
           "UniqueBack": false
         },
         "102": {
-          "FaceURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/grids/classic_spells_grid_3.jpg",
+          "FaceURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/grids/classic_spells/classic_spells_grid_3.jpg",
           "BackURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/card-backs/yugioh_card_back_grid.jpg",
           "NumWidth": 10,
           "NumHeight": 7,
@@ -434,7 +434,7 @@
           "UniqueBack": false
         },
         "103": {
-          "FaceURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/grids/classic_spells_grid_4.jpg",
+          "FaceURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/grids/classic_spells/classic_spells_grid_4.jpg",
           "BackURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/card-backs/yugioh_card_back_grid.jpg",
           "NumWidth": 10,
           "NumHeight": 7,
@@ -442,7 +442,7 @@
           "UniqueBack": false
         },
         "104": {
-          "FaceURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/grids/classic_spells_grid_5.jpg",
+          "FaceURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/grids/classic_spells/classic_spells_grid_5.jpg",
           "BackURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/card-backs/yugioh_card_back_grid.jpg",
           "NumWidth": 10,
           "NumHeight": 7,
@@ -450,7 +450,7 @@
           "UniqueBack": false
         },
         "105": {
-          "FaceURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/grids/classic_spells_grid_6.jpg",
+          "FaceURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/grids/classic_spells/classic_spells_grid_6.jpg",
           "BackURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/card-backs/yugioh_card_back_grid.jpg",
           "NumWidth": 10,
           "NumHeight": 7,
