@@ -8,21 +8,21 @@ def create_single_card_back():
     
     # Convert to RGB and resize to match front card dimensions
     back_img = back_img.convert('RGB')
-    back_img = back_img.resize((409, 585), Image.LANCZOS)  # Match front card size
+    back_img = back_img.resize((410, 585), Image.LANCZOS)  # Match front card size
     
     # Save as JPEG for TTS
     back_img.save("C:\\GitHub\\YGO-TTS-Assets\\card-backs\\yugioh_card_back_single.jpg", 
                   'JPEG', quality=95, optimize=True)
     
-    print("Created single card back: yugioh_card_back_single.jpg (409x585)")
+    print("Created single card back: yugioh_card_back_single.jpg (410x585)")
 
 def increase_card_quality():
     """Recreate grids with higher quality and larger card sizes"""
-    print("Recreating grids with 4096x4096 size...")
+    print("Recreating grids with exactly divisible dimensions...")
     
-    # 4096x4096 grid settings
-    CARD_WIDTH = 409   # 4096 / 10 = 409.6, rounded to 409 pixels per card
-    CARD_HEIGHT = 585  # 4096 / 7 = 585.1, rounded to 585 pixels per card  
+    # Use dimensions that divide evenly and are TTS-friendly
+    CARD_WIDTH = 410   # 410*10=4100 pixels wide
+    CARD_HEIGHT = 585  # 585*7=4095 pixels tall
     CARDS_PER_ROW = 10
     CARDS_PER_COL = 7
     
@@ -149,7 +149,7 @@ def main():
     
     print("\nAll fixes complete!")
     print("- Single card back created (not grid)")
-    print("- Card quality increased (409x585 per card, 4096x4096 grids)")  
+    print("- Card quality increased (410x585 per card, 4100x4095 grids)")  
     print("- TTS JSON files updated")
 
 if __name__ == "__main__":
