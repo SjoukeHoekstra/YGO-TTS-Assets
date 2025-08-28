@@ -13,17 +13,17 @@ def optimize_image_for_tts(input_path, output_path, resize_to_grid=True):
         
         # Only resize grids, not individual cards
         if resize_to_grid:
-            # Current TTS grid: 10 cards × 7 cards, exactly divisible
-            expected_width = 4100  # 410*10
-            expected_height = 4095 # 585*7
+            # Current TTS grid: 10 cards × 7 cards using original dimensions
+            expected_width = 4210   # 421*10
+            expected_height = 4298  # 614*7
             
             if img.size != (expected_width, expected_height):
                 img = img.resize((expected_width, expected_height), Image.LANCZOS)
         
-        # Save with TTS-optimized settings
+        # Save with maximum TTS-optimized settings
         img.save(output_path, 'JPEG', 
-                quality=95,           # High quality for TTS
-                optimize=True,        # Optimize file size
+                quality=100,          # Maximum quality for TTS
+                optimize=False,       # No optimization to preserve quality
                 progressive=False,    # TTS prefers baseline JPEG
                 subsampling=0)        # No chroma subsampling
         

@@ -8,21 +8,21 @@ def create_single_card_back():
     
     # Convert to RGB and resize to match front card dimensions
     back_img = back_img.convert('RGB')
-    back_img = back_img.resize((410, 585), Image.LANCZOS)  # Match front card size
+    back_img = back_img.resize((421, 614), Image.LANCZOS)  # Match front card size
     
-    # Save as JPEG for TTS
+    # Save as JPEG for TTS with maximum quality
     back_img.save("C:\\GitHub\\YGO-TTS-Assets\\card-backs\\yugioh_card_back_single.jpg", 
-                  'JPEG', quality=95, optimize=True)
+                  'JPEG', quality=100, optimize=False, subsampling=0)
     
-    print("Created single card back: yugioh_card_back_single.jpg (410x585)")
+    print("Created single card back: yugioh_card_back_single.jpg (421x614)")
 
 def increase_card_quality():
     """Recreate grids with higher quality and larger card sizes"""
-    print("Recreating grids with exactly divisible dimensions...")
+    print("Recreating grids with original card dimensions for maximum quality...")
     
-    # Use dimensions that divide evenly and are TTS-friendly
-    CARD_WIDTH = 410   # 410*10=4100 pixels wide
-    CARD_HEIGHT = 585  # 585*7=4095 pixels tall
+    # Use original card dimensions for maximum quality
+    CARD_WIDTH = 421   # Original card width from YGOPRODeck
+    CARD_HEIGHT = 614  # Original card height from YGOPRODeck
     CARDS_PER_ROW = 10
     CARDS_PER_COL = 7
     
@@ -84,9 +84,11 @@ def increase_card_quality():
             cards_placed = 0
             for i, image_path in enumerate(grid_images):
                 try:
-                    # Open and resize card image with higher quality
+                    # Open card image - keep original size for maximum quality
                     card_image = Image.open(image_path)
-                    card_image = card_image.resize((CARD_WIDTH, CARD_HEIGHT), Image.LANCZOS)
+                    # Only resize if not already the target size
+                    if card_image.size != (CARD_WIDTH, CARD_HEIGHT):
+                        card_image = card_image.resize((CARD_WIDTH, CARD_HEIGHT), Image.LANCZOS)
                     
                     # Calculate position in grid
                     row = i // CARDS_PER_ROW
@@ -101,9 +103,9 @@ def increase_card_quality():
                 except Exception as e:
                     print(f"Error processing {image_path}: {e}")
             
-            # Save grid with higher quality
+            # Save grid with maximum quality
             output_path = os.path.join(grids_dir, f"{category_name}_grid_{grid_num + 1}.jpg")
-            grid_image.save(output_path, 'JPEG', quality=98, optimize=True, subsampling=0)
+            grid_image.save(output_path, 'JPEG', quality=100, optimize=False, subsampling=0)
             print(f"Created high-quality grid: {category_name}_grid_{grid_num + 1}.jpg ({cards_placed} cards)")
 
 def update_tts_json_files():
@@ -149,7 +151,7 @@ def main():
     
     print("\nAll fixes complete!")
     print("- Single card back created (not grid)")
-    print("- Card quality increased (410x585 per card, 4100x4095 grids)")  
+    print("- Maximum quality: original size (421x614 per card, 4210x4298 grids)")  
     print("- TTS JSON files updated")
 
 if __name__ == "__main__":
