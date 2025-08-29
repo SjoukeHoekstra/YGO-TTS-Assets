@@ -59,8 +59,8 @@
         "100": {
           "FaceURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/grids/classic_ultra_rares/classic_ultra_rares_grid_1.jpg",
           "BackURL": "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/card-backs/yugioh_card_back_single.jpg",
-          "NumWidth": 10,
-          "NumHeight": 7,
+          "NumWidth": 5,
+          "NumHeight": 3,
           "BackIsHidden": true,
           "UniqueBack": false
         }

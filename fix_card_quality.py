@@ -8,23 +8,23 @@ def create_single_card_back():
     
     # Convert to RGB and resize to match front card dimensions
     back_img = back_img.convert('RGB')
-    back_img = back_img.resize((421, 614), Image.LANCZOS)  # Match front card size
+    back_img = back_img.resize((813, 1185), Image.LANCZOS)  # Match full-size card dimensions
     
     # Save as JPEG for TTS with maximum quality
     back_img.save("C:\\GitHub\\YGO-TTS-Assets\\card-backs\\yugioh_card_back_single.jpg", 
                   'JPEG', quality=100, optimize=False, subsampling=0)
     
-    print("Created single card back: yugioh_card_back_single.jpg (421x614)")
+    print("Created single card back: yugioh_card_back_single.jpg (813x1185)")
 
 def increase_card_quality():
-    """Recreate grids with higher quality and larger card sizes"""
-    print("Recreating grids with original card dimensions for maximum quality...")
+    """Recreate grids with full-size cards in 5x3 layout"""
+    print("Creating 5x3 grids with full-size 813x1185 cards...")
     
-    # Use original card dimensions for maximum quality
-    CARD_WIDTH = 421   # Original card width from YGOPRODeck
-    CARD_HEIGHT = 614  # Original card height from YGOPRODeck
-    CARDS_PER_ROW = 10
-    CARDS_PER_COL = 7
+    # Use actual full-size card dimensions from downloads
+    CARD_WIDTH = 813   # Full resolution card width
+    CARD_HEIGHT = 1185 # Full resolution card height
+    CARDS_PER_ROW = 5
+    CARDS_PER_COL = 3
     
     categories = {
         'classic_commons': 'C:\\GitHub\\YGO-TTS\\images\\classic_commons',
@@ -63,7 +63,7 @@ def increase_card_quality():
             
         # Calculate grids needed
         import math
-        cards_per_grid = CARDS_PER_ROW * CARDS_PER_COL
+        cards_per_grid = CARDS_PER_ROW * CARDS_PER_COL  # 15 cards per grid
         num_grids = math.ceil(len(available_images) / cards_per_grid)
         
         # Create output directory
@@ -76,21 +76,21 @@ def increase_card_quality():
             end_idx = min(start_idx + cards_per_grid, len(available_images))
             grid_images = available_images[start_idx:end_idx]
             
-            # Create grid
-            grid_width = CARDS_PER_ROW * CARD_WIDTH
-            grid_height = CARDS_PER_COL * CARD_HEIGHT
-            grid_image = Image.new('RGB', (grid_width, grid_height), 'white')
+            # Create initial grid at full card size (5x3 * 813x1185 = 4065x3555)
+            initial_width = CARDS_PER_ROW * CARD_WIDTH   # 4065 pixels
+            initial_height = CARDS_PER_COL * CARD_HEIGHT # 3555 pixels
+            grid_image = Image.new('RGB', (initial_width, initial_height), 'white')
             
             cards_placed = 0
             for i, image_path in enumerate(grid_images):
                 try:
-                    # Open card image - keep original size for maximum quality
+                    # Open card image at full resolution
                     card_image = Image.open(image_path)
-                    # Only resize if not already the target size
+                    # Ensure card is exactly 813x1185 (should already be this size)
                     if card_image.size != (CARD_WIDTH, CARD_HEIGHT):
                         card_image = card_image.resize((CARD_WIDTH, CARD_HEIGHT), Image.LANCZOS)
                     
-                    # Calculate position in grid
+                    # Calculate position in 5x3 grid
                     row = i // CARDS_PER_ROW
                     col = i % CARDS_PER_ROW
                     x = col * CARD_WIDTH
@@ -103,10 +103,26 @@ def increase_card_quality():
                 except Exception as e:
                     print(f"Error processing {image_path}: {e}")
             
+            # Scale the grid to maximum size within 4096x4096 while preserving aspect ratio
+            original_width = initial_width   # 4065
+            original_height = initial_height # 3555
+            
+            # Calculate scale factor to fit within 4096x4096
+            scale_x = 4096 / original_width
+            scale_y = 4096 / original_height
+            scale_factor = min(scale_x, scale_y)  # Use smaller scale to maintain aspect ratio
+            
+            # Calculate new dimensions
+            new_width = int(original_width * scale_factor)
+            new_height = int(original_height * scale_factor)
+            
+            # Resize grid maintaining aspect ratio
+            final_grid = grid_image.resize((new_width, new_height), Image.LANCZOS)
+            
             # Save grid with maximum quality
             output_path = os.path.join(grids_dir, f"{category_name}_grid_{grid_num + 1}.jpg")
-            grid_image.save(output_path, 'JPEG', quality=100, optimize=False, subsampling=0)
-            print(f"Created high-quality grid: {category_name}_grid_{grid_num + 1}.jpg ({cards_placed} cards)")
+            final_grid.save(output_path, 'JPEG', quality=100, optimize=False, subsampling=0)
+            print(f"Created {new_width}x{new_height} grid: {category_name}_grid_{grid_num + 1}.jpg ({cards_placed} cards)")
 
 def update_tts_json_files():
     """Update TTS JSON files with new card back URL and dimensions"""
@@ -127,9 +143,9 @@ def update_tts_json_files():
                         for deck_id, deck_info in obj['CustomDeck'].items():
                             # Update BackURL to single card back
                             deck_info['BackURL'] = "https://raw.githubusercontent.com/SjoukeHoekstra/YGO-TTS-Assets/main/card-backs/yugioh_card_back_single.jpg"
-                            # Update dimensions for higher quality
-                            deck_info['NumWidth'] = 10
-                            deck_info['NumHeight'] = 7
+                            # Update dimensions for 5x3 grid layout
+                            deck_info['NumWidth'] = 5
+                            deck_info['NumHeight'] = 3
             
             # Save updated file
             with open(deck_file, 'w', encoding='utf-8') as f:
@@ -150,9 +166,9 @@ def main():
     update_tts_json_files()
     
     print("\nAll fixes complete!")
-    print("- Single card back created (not grid)")
-    print("- Maximum quality: original size (421x614 per card, 4210x4298 grids)")  
-    print("- TTS JSON files updated")
+    print("- Single card back created (813x1185)")
+    print("- 5x3 grids with full-size cards scaled to maximum size within 4096x4096")  
+    print("- TTS JSON files updated for 5x3 layout")
 
 if __name__ == "__main__":
     main()

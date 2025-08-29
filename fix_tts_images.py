@@ -13,9 +13,9 @@ def optimize_image_for_tts(input_path, output_path, resize_to_grid=True):
         
         # Only resize grids, not individual cards
         if resize_to_grid:
-            # Current TTS grid: 10 cards × 7 cards using original dimensions
-            expected_width = 4210   # 421*10
-            expected_height = 4298  # 614*7
+            # Current TTS grid: 5x3 cards scaled with preserved aspect ratio
+            expected_width = 4095
+            expected_height = 3582
             
             if img.size != (expected_width, expected_height):
                 img = img.resize((expected_width, expected_height), Image.LANCZOS)
